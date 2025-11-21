@@ -63,15 +63,15 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
           <FaTimes size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-4" style={{ color: colors.bg }}>
+        <h2 className="text-2xl text-[#7F6744] font-bold mb-4 ">
           Update Category
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div>
             <label
-              className="block text-sm font-medium mb-1"
-              style={{ color: colors.bg }}
+              className="block text-sm font-medium mb-1 text-[#7F6744]"
+              
             >
               Category Name
             </label>
@@ -79,19 +79,18 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
               {...register("name")}
               type="text"
               placeholder="Enter category name"
-              className="w-full p-2 rounded border outline-none"
+              className="w-full p-2 rounded border outline-none text-[#7F6744]"
               style={{
                 borderColor: colors.bg,
                 backgroundColor: colors.bg,
-                color: colors.card
               }}
             />
           </div>
 
           <div>
             <label
-              className="block text-sm font-medium mb-1"
-              style={{ color: colors.bg }}
+              className="block text-sm font-medium mb-1 text-[#7F6744]"
+              
             >
               Upload Photo
             </label>

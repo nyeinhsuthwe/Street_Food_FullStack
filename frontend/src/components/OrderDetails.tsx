@@ -76,7 +76,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
 
                 <div className="overflow-x-auto ">
                     <table className="w-full table-auto border-collapse">
-                        <thead className="bg-gray-100 text-gray-700 " style={{ backgroundColor: colors.card, color: colors.bg }}>
+                        <thead className="bg-gray-100 text-[#7f6743] " style={{ backgroundColor: colors.card }}>
                             <tr>
                                 <th className="p-3 text-left">Menu</th>
                                 <th className="p-3 text-center">Quantity</th>
@@ -87,10 +87,10 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                             {order.items.map((item) => (
                                 <tr key={item._id} className="transition-colors">
-                                    <td className="p-3 font-bold" style={{ color: colors.card }}>{item.menu_id.menu}</td>
-                                    <td className="p-3 font-bold text-center" style={{ color: colors.card }}>{item.quantity}</td>
-                                    <td className="p-3 font-bold text-center" style={{ color: colors.card }}>{item.price.toLocaleString()}</td>
-                                    <td className="p-3 font-bold text-center" style={{ color: colors.card }}>{item.subtotal.toLocaleString()}</td>
+                                    <td className="p-3 font-bold text-[#7f6743]">{item.menu_id.menu}</td>
+                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.quantity}</td>
+                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.price.toLocaleString()}</td>
+                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.subtotal.toLocaleString()}</td>
                                 </tr>
                             ))}
                         </tbody>

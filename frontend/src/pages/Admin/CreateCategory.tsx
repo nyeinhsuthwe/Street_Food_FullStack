@@ -64,8 +64,8 @@ const CreateCategory: React.FC = () => {
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: colors.bg }}
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                 
                 >
                   Category Name
                 </label>
@@ -84,8 +84,8 @@ const CreateCategory: React.FC = () => {
 
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: colors.bg }}
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                 
                 >
                   Upload Photo
                 </label>
@@ -95,7 +95,7 @@ const CreateCategory: React.FC = () => {
                   accept="image/*"
                   className="block  rounded bg-[#F2EAD3] w-full text-sm text-[#344F1F] file:mr-4 file:py-2 file:px-4 
                                 file:border-0 file:font-semibold 
-                                file:bg-amber-600 file:text-white hover:file:bg-amber-700 transition"
+                                file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
                 />
               </div>
             </div>

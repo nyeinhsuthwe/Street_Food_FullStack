@@ -61,7 +61,7 @@ const AdminDashboard: React.FC = () => {
         >
           🍔 Menu Management
         </h1>
-        <p style={{ color: colors.card }} className="mt-2">
+        <p  className="mt-2 text-[#7F6744]">
           Manage your street food menu with a warm vintage vibe
         </p>
       </div>
@@ -74,8 +74,8 @@ const AdminDashboard: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
               <h2
-                className="text-2xl font-semibold"
-                style={{ color: colors.bg }}
+                className="text-2xl font-semibold text-[#7F6744]"
+                
               >
                 Create Menu Item
               </h2>
@@ -86,7 +86,7 @@ const AdminDashboard: React.FC = () => {
             <button
               type="submit"
               className="flex items-center gap-2 mt-4 md:mt-0 font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 
-               text-white hover:bg-amber-700 bg-amber-600"
+               text-white hover:bg-amber-600 bg-amber-500"
             >
               <FaPlus /> Add Item
             </button>
@@ -96,8 +96,8 @@ const AdminDashboard: React.FC = () => {
             {/* Menu */}
             <div>
               <label
-                className="block text-sm font-medium mb-1"
-                style={{ color: colors.bg }}
+                className="block text-[#7F6744] text-sm font-medium mb-1"
+               
               >
                 Menu
               </label>
@@ -113,8 +113,8 @@ const AdminDashboard: React.FC = () => {
             {/* Category Dropdown */}
             <div>
               <label
-                className="block text-sm font-medium mb-1"
-                style={{ color: colors.bg }}
+                className="block text-[#7F6744] text-sm font-medium mb-1"
+               
               >
                 Category
               </label>
@@ -135,8 +135,8 @@ const AdminDashboard: React.FC = () => {
             {/* Price */}
             <div>
               <label
-                className="block text-sm font-medium mb-1"
-                style={{ color: colors.bg }}
+                className="block text-[#7F6744] text-sm font-medium mb-1"
+               
               >
                 Price ($)
               </label>
@@ -152,8 +152,8 @@ const AdminDashboard: React.FC = () => {
             {/* Description */}
             <div className="lg:col-span-2">
               <label
-                className="block text-sm font-medium mb-1"
-                style={{ color: colors.bg }}
+                className="block text-[#7F6744] text-sm font-medium mb-1"
+               
               >
                 Description
               </label>
@@ -169,8 +169,8 @@ const AdminDashboard: React.FC = () => {
             {/* Upload Photo */}
             <div>
               <label
-                className="block text-sm font-medium mb-1"
-                style={{ color: colors.bg }}
+                className="block text-[#7F6744] text-sm font-medium mb-1"
+               
               >
                 Upload Photo
               </label>
@@ -180,7 +180,7 @@ const AdminDashboard: React.FC = () => {
                 accept="image/*"
                 className="block bg-[#F2EAD3] w-full text-sm text-[#344F1F] file:mr-4 file:py-2 file:px-4 
                   file:border-0 file:font-semibold 
-                  file:bg-amber-600 file:text-white hover:file:bg-amber-700 transition"
+                  file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
               />
             </div>
           </div>

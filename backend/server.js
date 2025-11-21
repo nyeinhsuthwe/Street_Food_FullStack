@@ -13,6 +13,7 @@ const authorizeRole = require("./middlewares/authorizeRole");
 const User = require("./model/userModel");
 const bycrypt = require("bcrypt");
 const handleErrorMessage = require("./middlewares/handleErrorMessage");
+const payRouter = require('./routes/payment')
 
 const app = express();
 
@@ -59,4 +60,5 @@ app.use("/api", authRouter);
 app.use("/api/uploads", express.static("uploads"));
 app.use("/api",requireAuth, menuRouter);
 app.use("/api",requireAuth, categoryRouter);
-app.use("/api",requireAuth, orderRouter);
+app.use("/api", requireAuth, orderRouter); 
+app.use("/api", requireAuth, payRouter)

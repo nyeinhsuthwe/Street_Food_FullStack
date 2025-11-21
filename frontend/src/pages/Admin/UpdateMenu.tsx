@@ -72,7 +72,7 @@ const UpdateMenu: React.FC<UpdateMenuFormProps> = ({ menu, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 backdrop-blur-sm">
       <div className=" p-6 rounded-2xl w-[500px] border-2 border-green-200 relative" style={{background:colors.card}}>
-        <h2 className="text-xl font-bold mb-4" style={{ color: colors.bg }}>
+        <h2 className="text-xl font-bold mb-4 text-[#7f6743]" >
           Update Menu
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -80,18 +80,18 @@ const UpdateMenu: React.FC<UpdateMenuFormProps> = ({ menu, onClose }) => {
             type="text"
             {...register("menu")}
             placeholder="Menu Name"
-            className=" p-2  rounded bg-amber-100" 
+            className=" p-2  rounded bg-white" 
           />
           <input
             type="number"
             {...register("price", { valueAsNumber: true })}
             placeholder="Price"
-            className=" p-2  rounded bg-amber-100" 
+            className=" p-2  rounded bg-white" 
           />
           <textarea
             {...register("description")}
             placeholder="Description"
-            className=" p-2  rounded bg-amber-100" 
+            className=" p-2  rounded bg-white" 
           />
           <input
             type="file"

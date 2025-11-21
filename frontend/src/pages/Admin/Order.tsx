@@ -46,8 +46,8 @@ export function Order() {
                     <select
                         value={selectedOrderStatus}
                         onChange={(e) => setSelectedOrderStatus(e.target.value)}
-                        className="border rounded px-3 py-3"
-                        style={{ color: colors.bg, backgroundColor: colors.card }}
+                        className="border text-[#7f6743] bg-green-400 rounded px-3 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                       
                     >
                         <option value="All" >All</option>
                         <option value="Pending">Pending</option>

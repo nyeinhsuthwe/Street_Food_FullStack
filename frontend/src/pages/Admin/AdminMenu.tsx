@@ -107,7 +107,7 @@ const currentPage = menusData?.currentPage || 1;
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border bg-green-800 border-gray-300 rounded-lg px-4  text-amber-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="border bg-green-400  border-gray-300 rounded-lg px-4  text-[#7f6743] focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <option value="All">All Categories</option>
           {categories?.map((cat: Categories) => (

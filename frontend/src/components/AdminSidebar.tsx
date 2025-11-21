@@ -11,6 +11,7 @@ import {
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
+import { colors } from "../constant/color";
 
 const AdminSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -24,15 +25,15 @@ const AdminSidebar: React.FC = () => {
   return (
     <aside
       className={`${isOpen ? "w-64" : "w-20"
-        } bg-[#344F1F]  text-[#F2EAD3] border-r border-gray-200 flex flex-col transition-all duration-300 min-h-screen shadow-md`}
+        }  text-[#7F6744] border-r border-gray-200 flex flex-col transition-all duration-300 min-h-screen shadow-md`} style={{backgroundColor:colors.card}}
     >
 
-      <div className="flex items-center gap-5 px-4 py-5 border-b border-gray-200">
+      <div className="flex items-center gap-5 px-4 py-5 border-b border-[#ead8bc]">
         <div className="flex items-center gap-2">
           {isOpen && <FaHamburger className="text-[#F4991A]" size={24} />}
-          {isOpen && <span className="font-bold text-lg text-[#F2EAD3]">StreetBites</span>}
+          {isOpen && <span className="font-bold text-lg text-[#F4991A]">StreetBites</span>}
         </div>
-        <button onClick={() => setIsOpen(!isOpen)} className="text-[#F2EAD3]">
+        <button onClick={() => setIsOpen(!isOpen)} className="text-[#F4991A]">
           <FaBars />
         </button>
       </div>
@@ -88,7 +89,7 @@ const AdminSidebar: React.FC = () => {
       </nav>
 
 
-      <div className="p-4 border-t border-gray-200" onClick={()=>handleLogout()}>
+      <div className="p-4 border-t border-[#ead8bc]" onClick={()=>handleLogout()}>
         <a
           href="#"
           className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
