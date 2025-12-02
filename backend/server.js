@@ -15,6 +15,7 @@ const bycrypt = require("bcrypt");
 const handleErrorMessage = require("./middlewares/handleErrorMessage");
 const payRouter = require('./routes/payment')
 
+
 const app = express();
 
 const mongoURL =
@@ -45,12 +46,15 @@ mongoose.connect(mongoURL).then(async() => {
 app.use(express.static("public"));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://192.168.100.163:5173"],
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
+
+
 
 app.use(morgan(`dev`));
 app.use(express.json());
@@ -62,3 +66,4 @@ app.use("/api",requireAuth, menuRouter);
 app.use("/api",requireAuth, categoryRouter);
 app.use("/api", requireAuth, orderRouter); 
 app.use("/api", requireAuth, payRouter)
+
