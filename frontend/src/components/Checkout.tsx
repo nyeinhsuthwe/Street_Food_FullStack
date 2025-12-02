@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useApiMutation } from "../hook/useMutation";
 import toast from "react-hot-toast";
 import PaymentModal from "./PaymentModal";
+import { AiOutlinePhone } from "react-icons/ai";
+
 
 type CheckoutProps = {
     onClose: () => void;
@@ -22,7 +24,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [cachedData, setCachedData] = useState<CheckoutFormData | null>(null);
 
-    const { register, handleSubmit, watch } = useForm<CheckoutFormData>();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutFormData>();
 
     const checkoutMutation = useApiMutation({
         onSuccess: () => {
@@ -81,9 +83,8 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                             {["takeaway", "dinein", "delivery"].map(type => (
                                 <label
                                     key={type}
-                                    className={`border rounded-lg p-3 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
-                                        deliveryType === type ? "bg-red-100 border-red-500" : ""
-                                    }`}
+                                    className={`border rounded-lg p-3 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${deliveryType === type ? "bg-red-100 border-red-500" : ""
+                                        }`}
                                 >
                                     <input
                                         type="radio"
@@ -101,13 +102,30 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                     <div className="mb-5">
                         <h3 className="text-sm font-semibold mb-2">Contact Info</h3>
 
-                        <input
-                            type="text"
-                            placeholder="Phone Number"
-                            {...register("phone", { required: true })}
-                            className="w-full mb-3 border px-3 py-2 rounded-lg"
-                        />
+                        <div className="relative">
+                            <AiOutlinePhone
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                                size={20}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                {...register("phone", {
+                                    required: "Phone number is required",
+                                    pattern: {
+                                        value: /^(09|\+959)\d{7,9}$/,
+                                        message: "Invalid Myanmar phone number",
+                                    },
+                                })}
+                                className="w-full pl-10 border px-3 py-2 rounded-lg"
+                            />
+                        </div>
+
+                        {errors.phone && (
+                            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                        )}
                     </div>
+
 
                     {deliveryType === "delivery" && (
                         <div className="mb-5">

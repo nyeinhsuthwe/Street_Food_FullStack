@@ -5,6 +5,7 @@ import Category from "../../components/Category";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useApiMutation } from "../../hook/useMutation";
+import toast from "react-hot-toast";
 
 
 const CreateCategory: React.FC = () => {
@@ -41,6 +42,7 @@ const CreateCategory: React.FC = () => {
       method: "POST",
       body: formData
     })
+    toast.success("Category created successfully!")
   }
 
   return (
@@ -50,17 +52,17 @@ const CreateCategory: React.FC = () => {
 
       >
         <h1
-          className="text-4xl font-extrabold mb-6 text-center"
+          className="text-xl font-extrabold mb-6 text-center"
           style={{ color: colors.accent }}
         >
           🍕 Category Management
         </h1>
 
         <section
-          className="w-full h-full max-w-3xl shadow-lg rounded-2xl p-8 border mb-12"
+          className="w-full h-full max-h-49 max-w-xl shadow-lg rounded-2xl p-8 border mb-12"
           style={{ backgroundColor: colors.card, borderColor: colors.bg }}
         >
-          <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
+          <form className="grid gap-6 max-w-xl" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label
@@ -73,7 +75,7 @@ const CreateCategory: React.FC = () => {
                   {...register("name")}
                   type="text"
                   placeholder="Enter category name"
-                  className="w-full p-3 border rounded-lg outline-none transition"
+                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
                   style={{
                     backgroundColor: colors.bg,
                     borderColor: colors.bg,
@@ -93,19 +95,21 @@ const CreateCategory: React.FC = () => {
                   {...register("photo")}
                   type="file"
                   accept="image/*"
-                  className="block  rounded bg-[#F2EAD3] w-full text-sm text-[#344F1F] file:mr-4 file:py-2 file:px-4 
+                  className="block  rounded bg-[#F2EAD3] w-full text-xs text-[#344F1F] file:mr-4 file:py-3 file:px-4 
                                 file:border-0 file:font-semibold 
                                 file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
                 />
               </div>
             </div>
 
-            <button
+          
+              <button
               type="submit"
-              className="flex  text-center gap-2 justify-center mt-3 px-6 py-3 rounded-xl shadow-md font-semibold transition bg-green-600 hover:bg-green-700 text-white"
+              className="flex justify-center  text-sm text-center gap-1 mt-2   py-3 rounded-lg shadow-md font-semibold transition bg-green-600 hover:bg-green-700 text-white"
             >
               <FaPlus /> Add Category
             </button>
+            
           </form>
         </section>
       </main>

@@ -4,12 +4,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { colors } from "../../constant/color";
-
+import toast from "react-hot-toast";
+import { DashboardSkeleton } from "../../constant/skeleton";
 
 const AdminDashboard: React.FC = () => {
   const { register, handleSubmit, reset } = useForm<Inputs>();
 
-  const { data: categories } = useApiQuery<Categories[]>(
+  const { data: categories, isLoading } = useApiQuery<Categories[]>(
     {
       queryKey: ["categories"],
       endpoint: `${import.meta.env.VITE_API_URL}/get-category-list`,
@@ -19,7 +20,8 @@ const AdminDashboard: React.FC = () => {
     }
   );
 
- 
+
+
   const mutation = useApiMutation({
     onSuccess: (res: unknown) => {
       console.log("Menu created successfully", res);
@@ -35,7 +37,7 @@ const AdminDashboard: React.FC = () => {
     const formData = new FormData();
     formData.append("menu", menu.menu);
     formData.append("price", String(menu.price));
-    formData.append("description", menu.description);
+    formData.append("description", menu.description?.trim() || "No description");
     formData.append("category_id", menu.category_id);
 
     if (menu.photo && menu.photo[0]) {
@@ -47,144 +49,155 @@ const AdminDashboard: React.FC = () => {
       method: "POST",
       body: formData,
     });
+
+    toast.success("Menu created successfully!")
   };
+
+
 
   return (
     <main
-      className="min-h-screen w-full mx-auto flex flex-col items-center px-6 py-10"
+      className="min-h-screen max-w-4xl mx-auto flex flex-col items-center px-6 py-17"
       style={{ backgroundColor: colors.bg }}
     >
       <div className="mb-10 text-center">
         <h1
-          className="text-4xl font-extrabold"
+          className="text-2xl font-extrabold"
           style={{ color: colors.accent }}
         >
           🍔 Menu Management
         </h1>
-        <p  className="mt-2 text-[#7F6744]">
+        <p className="mt-2 text-sm text-[#7F6744]">
           Manage your street food menu with a warm vintage vibe
         </p>
       </div>
 
       <section
-        className="w-full max-w-5xl shadow-lg rounded-2xl p-8 mb-12 border"
+        className="max-w-3xl mx-auto max-h-85 shadow-lg rounded-2xl p-8 mb-12 border"
         style={{ backgroundColor: colors.card, borderColor: colors.bg }}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-            <div>
-              <h2
-                className="text-2xl font-semibold text-[#7F6744]"
-                
-              >
-                Create Menu Item
-              </h2>
-              <p className="text-sm mt-1" style={{ color: colors.accent }}>
-                Fill out the details to add a new menu item
-              </p>
-            </div>
-            <button
-              type="submit"
-              className="flex items-center gap-2 mt-4 md:mt-0 font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 
+        {isLoading ? (
+         
+          <div className="max-w-6xl">
+             <DashboardSkeleton />
+           </div>
+          
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+            <div className="flex flex-col  md:flex-row justify-between items-start md:items-center mb-6">
+              <div>
+                <h2
+                  className="text-lg font-semibold text-[#7F6744]"
+
+                >
+                  Create Menu Item
+                </h2>
+                <p className="text-xs mt-1" style={{ color: colors.accent }}>
+                  Fill out the details to add a new menu item
+                </p>
+              </div>
+              <button
+                type="submit"
+                className="flex items-center text-xs gap-2 mt-4 md:mt-0 font-semibold px-4 py-2.5 rounded-lg shadow-md transition-all duration-200 
                text-white hover:bg-amber-600 bg-amber-500"
-            >
-              <FaPlus /> Add Item
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Menu */}
-            <div>
-              <label
-                className="block text-[#7F6744] text-sm font-medium mb-1"
-               
               >
-                Menu
-              </label>
-              <input
-                type="text"
-                {...register("menu", { required: true })}
-                className="w-full p-3 border rounded-lg outline-none transition"
-                style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
-                placeholder="Enter Menu"
-              />
+                <FaPlus className="text-xs" /> Add Item
+              </button>
             </div>
 
-            {/* Category Dropdown */}
-            <div>
-              <label
-                className="block text-[#7F6744] text-sm font-medium mb-1"
-               
-              >
-                Category
-              </label>
-              <select
-                {...register("category_id", { required: true })}
-                className="w-full p-3 border rounded-lg outline-none transition"
-                style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
-              >
-                <option value="">Select Category</option>
-                {categories?.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {/* Menu */}
+              <div>
+                <label
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
 
-            {/* Price */}
-            <div>
-              <label
-                className="block text-[#7F6744] text-sm font-medium mb-1"
-               
-              >
-                Price ($)
-              </label>
-              <input
-                type="number"
-                {...register("price", { required: true })}
-                className="w-full p-3 border rounded-lg outline-none transition"
-                style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
-                placeholder="Enter Price"
-              />
-            </div>
+                >
+                  Menu
+                </label>
+                <input
+                  type="text"
+                  {...register("menu", { required: true })}
+                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
+                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  placeholder="Enter Menu"
+                />
+              </div>
 
-            {/* Description */}
-            <div className="lg:col-span-2">
-              <label
-                className="block text-[#7F6744] text-sm font-medium mb-1"
-               
-              >
-                Description
-              </label>
-              <textarea
-                {...register("description", { required: true })}
-                className="w-full p-3 border rounded-lg outline-none transition"
-                style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
-                rows={3}
-                placeholder="Describe the dish..."
-              />
-            </div>
+              {/* Category Dropdown */}
+              <div>
+                <label
+                  className="block text-[#7F6744] text-sm font-medium mb-1 "
 
-            {/* Upload Photo */}
-            <div>
-              <label
-                className="block text-[#7F6744] text-sm font-medium mb-1"
-               
-              >
-                Upload Photo
-              </label>
-              <input
-                {...register("photo")}
-                type="file"
-                accept="image/*"
-                className="block bg-[#F2EAD3] w-full text-sm text-[#344F1F] file:mr-4 file:py-2 file:px-4 
+                >
+                  Category
+                </label>
+                <select
+                  {...register("category_id", { required: true })}
+                  className="w-full p-3 border rounded-lg outline-none transition text-sm "
+                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                >
+                  <option value="">Select Category</option>
+                  {categories?.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Price */}
+              <div>
+                <label
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
+
+                >
+                  Price ($)
+                </label>
+                <input
+                  type="number"
+                  {...register("price", { required: true })}
+                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
+                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  placeholder="Enter Price"
+                />
+              </div>
+
+              {/* Description */}
+              <div className="lg:col-span-2">
+                <label
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                >
+                  Description
+                </label>
+                <textarea
+                  {...register("description")}
+                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
+                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  rows={3}
+                  placeholder="Describe the dish..."
+                />
+              </div>
+
+              {/* Upload Photo */}
+              <div>
+                <label
+                  className="block text-[#7F6744] text-sm font-medium mb-1"
+
+                >
+                  Upload Photo
+                </label>
+                <input
+                  {...register("photo")}
+                  type="file"
+                  accept="image/*"
+                  className="block bg-[#F2EAD3] w-full text-xs text-[#344F1F] file:mr-4 file:py-2 file:px-4 
                   file:border-0 file:font-semibold 
                   file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
-              />
+                />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        )}
       </section>
     </main>
   );

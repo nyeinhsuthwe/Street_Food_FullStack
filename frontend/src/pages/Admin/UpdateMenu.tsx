@@ -3,6 +3,7 @@ import { useApiMutation } from "../../hook/useMutation";
 import { colors } from "../../constant/color";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 interface UpdateMenuFormProps {
@@ -62,6 +63,8 @@ const UpdateMenu: React.FC<UpdateMenuFormProps> = ({ menu, onClose }) => {
         body: formData,
       });
     }
+
+    toast.success("Menu updated successfully!")
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +103,7 @@ const UpdateMenu: React.FC<UpdateMenuFormProps> = ({ menu, onClose }) => {
             className=" p-2  rounded bg-green-500 hover:bg-green-600"
             // style={{ backgroundColor: colors.accent }}
           />
-          <div className="flex justify-end gap-2 mt-2">
+          <div className="flex justify-end text-sm gap-2 mt-2">
             <button
               type="button"
               onClick={onClose}

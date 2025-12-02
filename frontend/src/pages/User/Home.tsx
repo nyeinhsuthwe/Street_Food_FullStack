@@ -69,7 +69,7 @@ const Home: React.FC = () => {
       </section>
 
 
-      <section className="mt-10 mb-12 px-6 max-w-7xl mx-auto">
+      <section className="mt-10 mb-12 px-6 max-w-5xl mx-auto">
         <h2
           className="text-3xl font-bold text-center"
           style={{ color: colors.text }}
@@ -88,15 +88,15 @@ const Home: React.FC = () => {
                 <img
                   src={`${import.meta.env.VITE_API_URL}/uploads/${c.photo}`}
                   alt={c.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-40 object-cover"
                 />
-                <div className="p-6 text-center">
-                  <h3 className="font-bold text-lg" style={{ color: colors.text }}>
+                <div className="p-3 text-center">
+                  <h3 className="font-bold text-md" style={{ color: colors.text }}>
                     {c.name}
                   </h3>
 
                   <div
-                    className="mt-3 flex items-center justify-center gap-1"
+                    className="mt-1 mb-2 text-md flex items-center justify-center gap-1"
                     style={{ color: colors.accent }}
                   >
                     <FaStar />

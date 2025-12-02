@@ -92,7 +92,7 @@ const History = () => {
                 <p className="text-center text-gray-500">You have no orders yet.</p>
             )}
 
-           <div className="flex-1 space-y-6 mb-4">
+            <div className="flex-1 space-y-6 mb-4">
                 {isLoading ? (
                     renderSkeleton()
                 ) : orders.length === 0 ? (
@@ -104,19 +104,20 @@ const History = () => {
                             className="border border-gray-300 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300 bg-white"
                         >
                             <div className="flex flex-wrap gap-2 mb-4">
-                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.status)}`}>
-                                    {order.status.toUpperCase()}
+                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.status || "pending")}`}>
+                                    {(order.status || "pending").toUpperCase()}
                                 </span>
-                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.deliveryType)}`}>
-                                    {order.deliveryType.toUpperCase()}
+                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.deliveryType || "takeaway")}`}>
+                                    {(order.deliveryType || "takeaway").toUpperCase()}
                                 </span>
-                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.paymentMethod)}`}>
-                                    {order.paymentMethod.toUpperCase()}
+                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.paymentMethod || "cash")}`}>
+                                    {(order.paymentMethod || "cash").toUpperCase()}
                                 </span>
                                 <span className="ml-auto text-gray-500 text-sm">
                                     {new Date(order.createdAt).toLocaleString()}
                                 </span>
                             </div>
+
 
                             <div className="mb-3">
                                 <strong>Items:</strong>
@@ -138,7 +139,7 @@ const History = () => {
                 )}
             </div>
 
-          
+
             <div className="flex justify-center gap-4 mt-auto ">
                 <button
                     onClick={handlePrevPage}

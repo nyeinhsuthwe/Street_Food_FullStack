@@ -8,15 +8,18 @@ interface CartItem {
     quantity: number;
     total: number;
     photo?: string;
+    note?: string | null;
 }
 
 interface CartState {
     items: CartItem[];
     subtotal: number;
+    note?: string | null
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
     updateQuantity: (id: string, quantity: number) => void;
     clearCart: () => void;
+    setNote: (note: string | null) => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -24,15 +27,16 @@ export const useCartStore = create<CartState>()(
         (set) => ({
             items: [],
             subtotal: 0,
-
-            addToCart: (item) =>
+            note: null,
+            setNote: (note) => set({ note }),
+            addToCart: (item: CartItem) =>
                 set((state) => {
-                    const existing = state.items.find((i) => i.id === item.id);
+                    const existing = state.items.find((i) => i.id === item.id && i.note === item.note);
                     let updatedItems;
 
                     if (existing) {
                         updatedItems = state.items.map((i) =>
-                            i.id === item.id
+                            i.id === item.id && i.note === item.note
                                 ? {
                                     ...i,
                                     quantity: i.quantity + item.quantity,
@@ -47,6 +51,7 @@ export const useCartStore = create<CartState>()(
                     const newSubtotal = updatedItems.reduce((sum, i) => sum + i.total, 0);
                     return { items: updatedItems, subtotal: newSubtotal };
                 }),
+
 
             removeFromCart: (id) =>
                 set((state) => {
@@ -64,7 +69,7 @@ export const useCartStore = create<CartState>()(
                     return { items: updatedItems, subtotal: newSubtotal };
                 }),
 
-            clearCart: () => set({ items: [], subtotal: 0 }),
+            clearCart: () => set({ items: [], subtotal: 0, note: null }),
         }),
         {
             name: "cart-storage",

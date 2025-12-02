@@ -7,6 +7,7 @@ declare global {
     description: string;
     photo?: string;
     category_id: string;
+    
   }
   interface Categories {
     _id?: string;
@@ -25,6 +26,7 @@ declare global {
     price: number;
     subtotal: number;
     menu?: string;
+    note? : string
   }
 
   export interface Order {
@@ -39,6 +41,5 @@ declare global {
     updatedAt?: string;
     __v?: number;
   }
-
 
 }

@@ -4,6 +4,7 @@ import { FaSave, FaTimes } from "react-icons/fa";
 import { colors } from "../../constant/color";
 import { useApiMutation } from "../../hook/useMutation";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 interface UpdateCategoryProps {
   category: Categories;
@@ -48,6 +49,8 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
       method: "PUT",
       body: formData,
     });
+
+    toast.success("Category updated successfully!")
   };
 
   return (
@@ -63,7 +66,7 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
           <FaTimes size={20} />
         </button>
 
-        <h2 className="text-2xl text-[#7F6744] font-bold mb-4 ">
+        <h2 className="text-xl text-[#7F6744] font-bold mb-4 ">
           Update Category
         </h2>
 
@@ -79,7 +82,7 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
               {...register("name")}
               type="text"
               placeholder="Enter category name"
-              className="w-full p-2 rounded border outline-none text-[#7F6744]"
+              className="w-full p-3 text-sm rounded border outline-none text-[#7F6744]"
               style={{
                 borderColor: colors.bg,
                 backgroundColor: colors.bg,
@@ -117,7 +120,7 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
 
           <button
             type="submit"
-            className=" flex items-center justify-center gap-2 px-4 py-2 rounded shadow-md font-semibold  bg-green-600 hover:bg-green-700 text-white"
+            className=" flex items-center text-sm justify-center gap-2 px-4 py-3 rounded shadow-md font-semibold  bg-green-600 hover:bg-green-700 text-white"
           >
             <FaSave /> Save Changes
           </button>

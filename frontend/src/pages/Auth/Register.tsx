@@ -38,7 +38,7 @@ export const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F9F5F0]">
-      <div className="rounded-2xl shadow-xl flex w-4/5 max-w-4xl overflow-hidden">
+      <div className="rounded-2xl shadow-xl flex w-4/5 max-w-3xl max-h-130 overflow-hidden">
         {/* Left side image/logo */}
         <div className="hidden md:flex w-1/2 bg-white items-center justify-center p-6">
           <img
@@ -50,11 +50,11 @@ export const Register = () => {
 
         {/* Right side register form */}
         <div className="w-full md:w-1/2 p-10 bg-red-500">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">
+          <h2 className="text-xl font-bold text-white mb-8 text-center">
             Create an Account
           </h2>
 
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-4 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
             {/* Name */}
             <div className="relative">
               <AiOutlineUser
@@ -64,8 +64,13 @@ export const Register = () => {
               <input
                 type="text"
                 placeholder="Full Name"
-                {...register("name", { required: "Name is required!" })}
-                className="w-full pl-10 p-3 border border-white rounded-xl focus:ring-2 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                {...register("name", {
+                  required: "Name is required!", minLength: {
+                    value: 4,
+                    message: "Name must be at least 4 characters",
+                  },
+                })}
+                className="w-full placeholder:text-sm pl-10 p-2 border-2 border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
               />
             </div>
             {errors.name && (
@@ -81,8 +86,13 @@ export const Register = () => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("email", { required: "Email is required!" })}
-                className="w-full pl-10 p-3 border border-white rounded-xl focus:ring-2 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                {...register("email", {
+                  required: "Email is required!", pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email format",
+                  },
+                })}
+                className="w-full pl-10 p-2 placeholder:text-sm border-2 border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
               />
             </div>
             {errors.email && (
@@ -98,8 +108,13 @@ export const Register = () => {
               <input
                 type="password"
                 placeholder="Password"
-                {...register("password", { required: "Password is required!" })}
-                className="w-full pl-10 p-3 border border-white rounded-xl focus:ring-2 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                {...register("password", {
+                  required: "Password is required!", minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                className="w-full pl-10 p-2 border-2 placeholder:text-sm border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
               />
             </div>
             {errors.password && (
@@ -109,18 +124,19 @@ export const Register = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-white text-red-500 py-3 rounded-xl hover:bg-gray-100 transition font-semibold text-lg"
+              className="w-full bg-white text-red-500 py-3 rounded-xl hover:bg-gray-100 transition font-semibold text-sm"
             >
               {registerMutation.isPending ? "Registering..." : "Register"}
             </button>
 
-            {/* Optional link */}
-            <div className="text-center mt-4">
-              <a href="/login" className="text-white hover:underline text-sm">
-                Already have an account? Login
-              </a>
-            </div>
           </form>
+
+          {/* Optional link */}
+          <div className="text-center mt-2">
+            <a href="/login" className="text-white hover:underline text-xs">
+              Already have an account? Login
+            </a>
+          </div>
         </div>
       </div>
     </div>

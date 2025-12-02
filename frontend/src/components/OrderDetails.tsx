@@ -46,25 +46,28 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
             <div className="rounded-3xl border border-green-500 p-6 w-11/12 md:w-3/4 lg:w-2/3 max-h-[80vh] overflow-y-auto shadow-2xl" style={{ backgroundColor: colors.bg }}>
 
                 <div className="flex flex-col justify-between  mb-6  pb-3">
-                    <h3 className="text-2xl font-bold" style={{ color: colors.accent }}>
-                        {order.user_id.name}'s Order
+                    <div className="flex justify-between">
+                        <h3 className="text-xl font-bold" style={{ color: colors.accent }}>
+                            {order.user_id.name}'s Order
 
-                    </h3>
-                   
+                        </h3>
+                        <p className=" text-gray-600 "> {new Date(order.createdAt).toLocaleString()}</p>
+                    </div>
+
                     <div
                         className="p-4 rounded-xl  flex flex-col items-start"
-                       
+
                     >
                         <p className="text-sm text-gray-600 font-bold mb-1">Contact Info</p>
 
-                      
-                        <p className="text-lg font-bold text-red-600">
+
+                        <p className="text-md font-bold text-red-600">
                             📞 {order.phone || "No phone number"}
                         </p>
 
-                      
+
                         {order.deliveryType === "delivery" && (
-                            <p className="text-lg font-bold text-purple-600 mt-1">
+                            <p className="text-md font-bold text-purple-600 mt-1">
                                 🏠 {order.address || "No address provided"}
                             </p>
                         )}
@@ -74,7 +77,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                 </div>
 
 
-                <div className="overflow-x-auto ">
+                <div className="overflow-x-auto text-sm">
                     <table className="w-full table-auto border-collapse">
                         <thead className="bg-gray-100 text-[#7f6743] " style={{ backgroundColor: colors.card }}>
                             <tr>
@@ -87,10 +90,11 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                             {order.items.map((item) => (
                                 <tr key={item._id} className="transition-colors">
-                                    <td className="p-3 font-bold text-[#7f6743]">{item.menu_id.menu}</td>
+                                    <td className="p-3 font-bold text-[#7f6743]">{item.menu_id?.menu || "Deleted Menu"}
+                                    </td>
                                     <td className="p-3 font-bold text-center text-[#7f6743]">{item.quantity}</td>
-                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.price.toLocaleString()}</td>
-                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.subtotal.toLocaleString()}</td>
+                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.price.toLocaleString() || 0}</td>
+                                    <td className="p-3 font-bold text-center text-[#7f6743]">{item.subtotal.toLocaleString() || 0}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -105,7 +109,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                         style={{ backgroundColor: colors.egg }}
                     >
                         <p className="text-sm text-gray-600 font-bold">Total</p>
-                        <p className="text-lg font-bold text-red-500 ">
+                        <p className="text-md font-bold text-red-500 ">
                             {order.items.reduce((sum, item) => sum + item.subtotal, 0).toLocaleString()}
                         </p>
                     </div>
@@ -117,7 +121,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                     >
                         <p className="text-sm text-gray-600 font-bold">Order Status</p>
                         <p
-                            className={`text-lg font-bold ${orderStatus?.toLowerCase() === "pending"
+                            className={`text-md font-bold ${orderStatus?.toLowerCase() === "pending"
                                 ? "text-yellow-500"
                                 : orderStatus?.toLowerCase() === "delivered"
                                     ? "text-blue-500"
@@ -149,7 +153,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                         style={{ backgroundColor: colors.egg }}
                     >
                         <p className="text-sm text-gray-600 font-bold">Delivery Type</p>
-                        <p className="text-lg font-bold text-green-600">{order.deliveryType || "Takeaway"}</p>
+                        <p className="text-md font-bold text-green-600">{order.deliveryType || "Takeaway"}</p>
                     </div>
 
 
@@ -158,19 +162,15 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                         style={{ backgroundColor: colors.egg }}
                     >
                         <p className="text-sm text-gray-600 font-bold">Payment Method</p>
-                        <p className="text-lg font-bold text-blue-500">{order.paymentMethod || "Mobile"}</p>
+                        <p className="text-md font-bold text-blue-500">{order.paymentMethod || "Mobile"}</p>
 
                     </div>
-
-
                 </div>
-
-
 
 
                 <div className="flex justify-end mt-6">
                     <button
-                        className="px-5 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-md transition-all"
+                        className="px-5 py-2 bg-green-500 text-md hover:bg-green-600 text-white font-semibold rounded-lg shadow-md transition-all"
                         onClick={onClose}
                     >
                         Close
