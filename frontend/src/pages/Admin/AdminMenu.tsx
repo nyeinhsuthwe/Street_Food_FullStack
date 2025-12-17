@@ -80,7 +80,7 @@ const AdminMenu: React.FC = () => {
       className="p-8 h-full pt-15 w-full overflow-y-auto"
       style={{ backgroundColor: colors.bg }}
     >
-      <div className="flex space-x-6 ml-19">
+      <div className="overflow-hidden mt-4 rounded-2xl max-w-5xl mx-auto flex space-x-6">
         <h2
           className="text-xl font-bold mb-3 flex items-center gap-2"
           style={{ color: colors.text }}
@@ -90,7 +90,7 @@ const AdminMenu: React.FC = () => {
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border text-xs rounded-lg px-4 text-[#7f6743]"
+          className="border text-sm rounded-lg px-4 text-[#7f6743]"
         >
           <option value="All">All Categories</option>
           {categories?.map((cat: Categories) => (

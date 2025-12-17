@@ -57,7 +57,7 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <main
-      className="min-h-screen max-w-4xl mx-auto flex flex-col items-center px-6 py-17"
+      className="min-h-screen w-full mx-auto flex flex-col items-center px-6 py-17"
       style={{ backgroundColor: colors.bg }}
     >
       <div className="mb-10 text-center">

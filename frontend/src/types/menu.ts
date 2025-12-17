@@ -42,4 +42,11 @@ declare global {
     __v?: number;
   }
 
+  export interface User{
+    _id?: string;
+    name: string;
+    role: string;
+    email : string
+  }
+
 }

@@ -11,7 +11,8 @@ import {
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
-import { colors } from "../constant/color";
+import { colors, linkBase, linkActive, linkInactive } from "../constant/color";
+import { NavLink } from "react-router";
 
 const AdminSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +26,7 @@ const AdminSidebar: React.FC = () => {
   return (
     <aside
       className={`${isOpen ? "w-64" : "w-20"
-        }  text-[#7F6744] border-r border-gray-200 flex flex-col transition-all duration-300 min-h-screen shadow-md`} style={{backgroundColor:colors.card}}
+        }  text-[#7F6744] border-r border-gray-200 flex flex-col transition-all duration-300 min-h-screen shadow-md`} style={{ backgroundColor: colors.card }}
     >
 
       <div className="flex items-center gap-5 px-4 py-5 border-b border-[#ead8bc]">
@@ -39,64 +40,71 @@ const AdminSidebar: React.FC = () => {
       </div>
 
       <nav className="flex flex-col gap-2 p-4 mt-4 font-medium flex-1">
-        <a
-          href="/admin"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
+        <NavLink
+          to="/admin"
+          end
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }
         >
           <FaClipboardList />
           {isOpen && <span>Dashboard</span>}
-        </a>
+        </NavLink>
 
-        <a
-          href="/admin/create-category"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
-          <BiSolidCategoryAlt/>
+        <NavLink
+          to="/admin/create-category"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }        >
+          <BiSolidCategoryAlt />
           {isOpen && <span>Category</span>}
-        </a>
+        </NavLink>
 
-        <a
-          href="/admin/menu"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
+        <NavLink
+          to="/admin/menu"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }           >
           <FaUtensils />
           {isOpen && <span>Menu</span>}
-        </a>
+        </NavLink>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
+        <NavLink
+          to="/admin/customer"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }           >
           <FaUsers />
           {isOpen && <span>Customers</span>}
-        </a>
+        </NavLink>
 
-        <a
-          href="/admin/order"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
+        <NavLink
+          to="/admin/order"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }           >
           <FaClipboardList />
           {isOpen && <span>Orders</span>}
-        </a>
+        </NavLink>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
+        <NavLink
+          to="admin/setting"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }           >
           <FaCog />
           {isOpen && <span>Settings</span>}
-        </a>
+        </NavLink>
       </nav>
 
 
-      <div className="p-4 border-t border-[#ead8bc]" onClick={()=>handleLogout()}>
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"
-        >
+      <div className="p-4 border-t border-[#ead8bc]" onClick={() => handleLogout()}>
+        <NavLink
+          to="#"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#FFF5E1] hover:text-[#F4991A] transition"    >
           <FaSignOutAlt />
           {isOpen && <span>Logout</span>}
-        </a>
+        </NavLink>
       </div>
     </aside>
   );

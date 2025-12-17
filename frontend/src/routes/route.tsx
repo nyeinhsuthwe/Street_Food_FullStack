@@ -13,6 +13,7 @@ import { Order } from "../pages/Admin/Order";
 import CartPage from "../pages/User/Cart";
 import { PublicRoute } from "./PublicRoute";
 import History from "../pages/User/History";
+import CustomerList from "../pages/Admin/CustomerList";
 
 const route = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const route = createBrowserRouter([
       {
         path : "order",
         element : <Order/>
+      },
+      {
+        path: "customer",
+        element : <CustomerList/>
       }
     ],
   },

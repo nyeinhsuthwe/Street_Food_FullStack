@@ -14,7 +14,7 @@ const User = require("./model/userModel");
 const bycrypt = require("bcrypt");
 const handleErrorMessage = require("./middlewares/handleErrorMessage");
 const payRouter = require('./routes/payment')
-
+const userRouter = require("./routes/user")
 
 const app = express();
 
@@ -65,5 +65,6 @@ app.use("/api/uploads", express.static("uploads"));
 app.use("/api",requireAuth, menuRouter);
 app.use("/api",requireAuth, categoryRouter);
 app.use("/api", requireAuth, orderRouter); 
-app.use("/api", requireAuth, payRouter)
+app.use("/api", requireAuth, payRouter);
+app.use("/api", requireAuth, userRouter);
 

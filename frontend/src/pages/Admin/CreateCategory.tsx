@@ -46,7 +46,7 @@ const CreateCategory: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full  " style={{ backgroundColor: colors.bg }}>
+    <div className="flex flex-col items-center w-full " style={{ backgroundColor: colors.bg }}>
       <main
         className=" flex flex-col items-center px-6 py-10"
 
