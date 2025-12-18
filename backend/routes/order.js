@@ -6,5 +6,6 @@ router.post("/create-order", OrderController.createOrder);
 router.get("/get-order-list", OrderController.getOrders);
 router.patch('/update-status/:id', OrderController.updateOrderStatus);
 router.get('/order-history', OrderController.orderHistory);
+router.delete('/delete-order/:id', OrderController.deleteOrder)
 
 module.exports = router;

@@ -6,7 +6,6 @@ const OrderController = {
 
     createOrder: async (req, res) => {
         try {
-            console.log("Request body:", req.body);
             const { user_id, items, paymentMethod, deliveryType, address, fullname, phone } = req.body;
             const orderItems = []
             const user = await User.findById(user_id)
@@ -73,6 +72,14 @@ const OrderController = {
             console.error("Get orders error:", error);
             return res.status(500).json({ message: "Failed to fetch orders." });
         }
+    },
+
+    deleteOrder: async (req, res) => {
+        const { id } = req.params
+        const deleteOrder = await Order.findByIdAndDelete(id)
+        return res.json({
+            message : "Order deleted successfully!"
+        })
     },
 
     updateOrderStatus: async (req, res) => {

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { colors } from "../../constant/color";
 import { useApiQuery } from "../../hook/useQuery";
-import { FaEye } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { CgMoreO } from "react-icons/cg";
 import OrderDetails from "../../components/OrderDetails";
 import { OrderSkeleton } from "../../constant/skeleton";
+import { useApiMutation } from "../../hook/useMutation";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export function Order() {
     const [page, setPage] = useState(1);
@@ -11,6 +15,7 @@ export function Order() {
     const [activeOrderId] = useState<string | null>(null);
     const [orderDetail, setOrderDetail] = useState<Order | null>(null);
     const [selectedOrderStatus, setSelectedOrderStatus] = useState<string>("All");
+    const queryClient = useQueryClient()
 
     const { data: orderData, isLoading } = useApiQuery(
         {
@@ -22,6 +27,22 @@ export function Order() {
             keepPreviousData: true
         },
     );
+
+    const deleteOrder = useApiMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["orders"] })
+             toast.success("Order deleted successfully!")
+        }
+        
+    })
+
+    const handleDelete = (id : string) => {
+        deleteOrder.mutate({
+            endpoint: `${import.meta.env.VITE_API_URL}/delete-order/${id}`,
+            method : "DELETE"
+        })
+       
+    }
 
     const orders = orderData?.orders || [];
     const currentPage = orderData?.currentPage || 1;
@@ -82,7 +103,7 @@ export function Order() {
                                         style={{ borderBottom: `2px solid ${colors.bg}` }}
                                     >
                                         <td className="text-center font-medium p-4" style={{ color: colors.text }}>
-                                            {order.user_id.name}
+                                            {order.user_id?.name ?? "Deleted User"}
                                         </td>
 
                                         <td className="text-center font-medium" style={{ color: colors.text }}>
@@ -104,13 +125,20 @@ export function Order() {
                                             {order.status.toUpperCase()}
                                         </td>
 
-                                        <td className="text-center">
+                                        <td className="text-center ">
                                             <button
                                                 type="button"
-                                                className="text-2xl mr-2 text-green-600"
+                                                className="text-lg mr-2 text-green-600"
                                                 onClick={() => handleOrderDetail(order)}
                                             >
-                                                <FaEye />
+                                               <CgMoreO/>
+                                            </button>
+                                               <button
+                                                type="button"
+                                                className="text-lg mr-2 text-red-600"
+                                                onClick={() => handleDelete(order._id!)}
+                                            >
+                                                <FaTrash />
                                             </button>
                                         </td>
                                     </tr>

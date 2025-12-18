@@ -48,7 +48,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onClose }) => {
                 <div className="flex flex-col justify-between  mb-6  pb-3">
                     <div className="flex justify-between">
                         <h3 className="text-xl font-bold" style={{ color: colors.accent }}>
-                            {order.user_id.name}'s Order
+                             {order.user_id?.name ?? "Deleted User"}'s Order
 
                         </h3>
                         <p className=" text-gray-600 "> {new Date(order.createdAt).toLocaleString()}</p>

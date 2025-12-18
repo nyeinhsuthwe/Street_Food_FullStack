@@ -31,7 +31,7 @@ declare global {
 
   export interface Order {
     _id?: string;
-    user_id: { _id: string; name: string };
+    user_id: { _id: string; name: string } ;
     user_name?: string;
     items: OrderItem[];
     paymentMethod: string;
@@ -46,7 +46,15 @@ declare global {
     _id?: string;
     name: string;
     role: string;
-    email : string
+    email: string;
+    
   }
+
+  export interface UserListResponse {
+  data: User[];
+  currentPage: number;
+  totalPages: number;
+}
+
 
 }
