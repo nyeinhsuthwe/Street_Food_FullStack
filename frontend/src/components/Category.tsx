@@ -1,4 +1,3 @@
-import { colors } from "../constant/color";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useApiQuery } from "../hook/useQuery";
@@ -45,10 +44,7 @@ const Category: React.FC = () => {
   return (
     <div className="w-full flex justify-center">
       <div className="w-full max-w-6xl px-7">
-        <div
-          style={{ backgroundColor: colors.bg }}
-          className="min-h-0 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-gray-100 rounded-xl p-6"
-        >
+        <div className="min-h-0 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-gray-100 rounded-2xl p-6 bg-surface">
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
             {isLoading
@@ -56,7 +52,7 @@ const Category: React.FC = () => {
               : data?.map((category: Categories) => (
                 <div
                   key={category._id}
-                  className="bg-amber-50 rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition-transform relative group"
+                  className="card overflow-hidden hover:-translate-y-1 transition-transform relative group"
                 >
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/${category.photo}`}
@@ -68,12 +64,12 @@ const Category: React.FC = () => {
                     <FaRegEdit
                       size={42}
                       onClick={() => setSelectedCategory(category)}
-                      className="border-[2.5px] border-gray-300 p-2 rounded cursor-pointer drop-shadow-lg text-yellow-400 hover:border-yellow-500 transition-transform hover:scale-110"
+                      className="border-[2.5px] border-soft p-2 rounded cursor-pointer drop-shadow-lg text-accent-3 hover:border-accent-3 transition-transform hover:scale-110 bg-surface"
                     />
                     <MdDelete
                       size={42}
                       onClick={() => handleDelete(category._id!)}
-                      className="border-[2.5px] border-gray-300 p-2 rounded text-red-500 cursor-pointer drop-shadow-lg hover:border-red-500 transition-transform hover:scale-110"
+                      className="border-[2.5px] border-soft p-2 rounded text-accent cursor-pointer drop-shadow-lg hover:border-accent transition-transform hover:scale-110 bg-surface"
                     />
                   </div>
 
@@ -85,7 +81,7 @@ const Category: React.FC = () => {
                       })
                     }
                   >
-                    <h3 className="font-bold text-md" style={{ color: colors.text }}>
+                    <h3 className="font-bold text-md">
                       {category.name}
                     </h3>
                   </div>

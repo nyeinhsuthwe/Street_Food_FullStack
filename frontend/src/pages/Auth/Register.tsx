@@ -37,28 +37,31 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#F9F5F0]">
-      <div className="rounded-2xl shadow-xl flex w-4/5 max-w-3xl max-h-130 overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen app-shell px-4">
+      <div className="card flex w-full max-w-3xl overflow-hidden">
         {/* Left side image/logo */}
-        <div className="hidden md:flex w-1/2 bg-white items-center justify-center p-6">
+        <div className="hidden md:flex w-1/2 bg-accent-2 items-center justify-center p-6 relative overflow-hidden">
+          <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-white/20 blur-2xl" />
+          <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
           <img
             src="/img/logo.jpg"
             alt="Logo"
-            className="w-5/6 h-auto object-contain"
+            className="w-5/6 h-auto object-contain rounded-2xl shadow-xl border border-white/40"
           />
         </div>
 
         {/* Right side register form */}
-        <div className="w-full md:w-1/2 p-10 bg-red-500">
-          <h2 className="text-xl font-bold text-white mb-8 text-center">
+        <div className="w-full md:w-1/2 p-10 bg-surface">
+          <h2 className="text-2xl font-bold mb-2 text-center">
             Create an Account
           </h2>
+          <p className="text-center text-[color:var(--muted)] mb-6 text-sm">Join the tastiest street crew</p>
 
           <form className="space-y-4 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
             {/* Name */}
             <div className="relative">
               <AiOutlineUser
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                 size={20}
               />
               <input
@@ -70,17 +73,17 @@ export const Register = () => {
                     message: "Name must be at least 4 characters",
                   },
                 })}
-                className="w-full placeholder:text-sm pl-10 p-2 border-2 border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                className="w-full pl-10 input placeholder:text-sm"
               />
             </div>
             {errors.name && (
-              <p className="text-white text-sm">{errors.name.message}</p>
+              <p className="text-accent text-sm">{errors.name.message}</p>
             )}
 
             {/* Email */}
             <div className="relative">
               <AiOutlineMail
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                 size={20}
               />
               <input
@@ -92,17 +95,17 @@ export const Register = () => {
                     message: "Invalid email format",
                   },
                 })}
-                className="w-full pl-10 p-2 placeholder:text-sm border-2 border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                className="w-full pl-10 input placeholder:text-sm"
               />
             </div>
             {errors.email && (
-              <p className="text-white text-sm">{errors.email.message}</p>
+              <p className="text-accent text-sm">{errors.email.message}</p>
             )}
 
             {/* Password */}
             <div className="relative">
               <AiOutlineLock
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                 size={20}
               />
               <input
@@ -114,17 +117,17 @@ export const Register = () => {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className="w-full pl-10 p-2 border-2 placeholder:text-sm border-white rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white bg-transparent placeholder-white"
+                className="w-full pl-10 input placeholder:text-sm"
               />
             </div>
             {errors.password && (
-              <p className="text-white text-sm">{errors.password.message}</p>
+              <p className="text-accent text-sm">{errors.password.message}</p>
             )}
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-white text-red-500 py-3 rounded-xl hover:bg-gray-100 transition font-semibold text-sm"
+              className="w-full btn-primary text-sm"
             >
               {registerMutation.isPending ? "Registering..." : "Register"}
             </button>
@@ -133,7 +136,7 @@ export const Register = () => {
 
           {/* Optional link */}
           <div className="text-center mt-2">
-            <a href="/login" className="text-white hover:underline text-xs">
+            <a href="/login" className="text-[color:var(--muted)] hover:text-accent text-xs">
               Already have an account? Login
             </a>
           </div>

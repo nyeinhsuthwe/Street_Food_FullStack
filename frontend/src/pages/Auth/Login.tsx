@@ -41,26 +41,29 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#F9F5F0]">
-      <div className="rounded-2xl shadow-xl flex w-4/5 max-w-3xl max-h-110 overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen app-shell px-4">
+      <div className="card flex w-full max-w-3xl overflow-hidden">
 
-        <div className="hidden md:flex w-1/2 bg-white items-center justify-center p-6">
+        <div className="hidden md:flex w-1/2 bg-accent items-center justify-center p-6 relative overflow-hidden">
+          <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-white/20 blur-2xl" />
+          <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
           <img
             src="/img/logo.jpg"
             alt="Logo"
-            className="w-5/6 h-auto object-contain"
+            className="w-5/6 h-auto object-contain rounded-2xl shadow-xl border border-white/40"
           />
         </div>
 
-        <div className="w-full md:w-1/2 p-10 bg-red-500">
-          <h2 className="text-xl font-bold text-white mb-8 text-center">
+        <div className="w-full md:w-1/2 p-10 bg-surface">
+          <h2 className="text-2xl font-bold mb-2 text-center">
             Welcome Back
           </h2>
+          <p className="text-center text-[color:var(--muted)] mb-6 text-sm">Grab your favorites in a few taps</p>
 
           <form className="space-y-4 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
             <div className="relative">
               <AiOutlineMail
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                 size={20}
               />
               <input
@@ -73,17 +76,17 @@ export const Login = () => {
                     message: "Invalid email format",
                   },
                 })}
-                className="w-full pl-10 placeholder:text-sm p-2 border-2  border-gray-100 rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white placeholder:text-white"
+                className="w-full pl-10 input placeholder:text-sm"
               />
             </div>
             {errors.email && (
-              <p className="text-white text-sm">{errors.email.message}</p>
+              <p className="text-accent text-sm">{errors.email.message}</p>
             )}
 
             {/* Password */}
             <div className="relative">
               <AiOutlineLock
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                 size={20}
               />
               <input
@@ -96,17 +99,17 @@ export const Login = () => {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className="w-full placeholder:text-sm placeholder:text-white  pl-10 p-2 border-2 border-gray-100 rounded-xl focus:ring-1 focus:ring-white focus:outline-none text-white"
+                className="w-full pl-10 input placeholder:text-sm"
               />
             </div>
             {errors.password && (
-              <p className="text-white text-sm">{errors.password.message}</p>
+              <p className="text-accent text-sm">{errors.password.message}</p>
             )}
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-white text-red-500 py-3  rounded-xl hover:bg-gray-100 transition font-semibold text-sm"
+              className="w-full btn-primary text-sm"
             >
               {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
@@ -114,12 +117,12 @@ export const Login = () => {
           </form>
           {/* Optional links */}
           <div className="text-center mt-3">
-            <a href="#" className="text-white hover:underline text-xs">
+            <a href="#" className="text-[color:var(--muted)] hover:text-accent text-xs">
               Forgot Password?
             </a>
           </div>
           <div className="text-center">
-            <a href="/register" className="text-white hover:underline text-xs">
+            <a href="/register" className="text-[color:var(--muted)] hover:text-accent text-xs">
               If you don't have an account? Register
             </a>
           </div>

@@ -1,19 +1,21 @@
 export const colors = {
-  bg: "#FFFFFF",
-  accent: "#F4991A", //orange
-  text: "#344F1F",
-  white: "#FFFFFF",
-  hoverbtn : "#55753b",
-  card : "#F8F4E6", //green
-  egg : "#F8F4E6"
+  bg: "var(--bg)",
+  accent: "var(--accent)",
+  accent2: "var(--accent-2)",
+  accent3: "var(--accent-3)",
+  text: "var(--text)",
+  white: "var(--surface)",
+  hoverbtn: "var(--accent-2)",
+  card: "var(--surface)",
+  egg: "var(--surface-2)",
 };
 
 export const linkBase =
-  "flex items-center gap-3 px-4 py-3 rounded-lg transition";
+  "flex items-center gap-3 px-4 py-3 rounded-xl transition";
 
 export const linkActive =
-  "bg-[#F7E6C4] text-[#F4991A]";
+  "bg-[color:var(--accent-3)] text-[color:var(--text)]";
 
 
 export const linkInactive =
-  "hover:bg-[#FFF5E1] hover:text-[#F4991A]";
+  "hover:bg-[color:var(--surface-2)] hover:text-[color:var(--text)]";

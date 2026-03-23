@@ -41,33 +41,33 @@ const History = () => {
     const getBadgeColor = (type: string) => {
         switch (type) {
             case "successed":
-                return "bg-green-100 text-green-800";
+                return "bg-accent-2 text-white";
             case "canceled":
-                return "bg-red-100 text-red-800";
+                return "bg-accent text-white";
             case "takeaway":
             case "dinein":
             case "delivery":
-                return "bg-blue-100 text-blue-800";
+                return "bg-accent-3 text-[color:var(--text)]";
             case "cash":
             case "wavepay":
             case "kbzpay":
             case "card":
-                return "bg-yellow-100 text-yellow-800";
+                return "bg-surface-2 text-[color:var(--text)]";
             default:
-                return "bg-gray-100 text-gray-800";
+                return "bg-surface-2 text-[color:var(--text)]";
         }
     };
 
     const renderSkeleton = () => (
         Array.from({ length: 3 }).map((_, idx) => (
-            <div key={idx} className="border rounded-xl shadow-md p-6 bg-white animate-pulse space-y-4">
-                <div className="h-6 w-1/4 bg-gray-300 rounded-full"></div>
+            <div key={idx} className="card p-6 animate-pulse space-y-4">
+                <div className="h-6 w-1/4 bg-[color:var(--border)] rounded-full"></div>
                 <div className="space-y-2">
-                    <div className="h-4 w-3/4 bg-gray-300 rounded"></div>
-                    <div className="h-4 w-full bg-gray-200 rounded"></div>
-                    <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
+                    <div className="h-4 w-3/4 bg-[color:var(--border)] rounded"></div>
+                    <div className="h-4 w-full bg-surface-2 rounded"></div>
+                    <div className="h-4 w-1/2 bg-[color:var(--border)] rounded"></div>
                 </div>
-                <div className="h-6 w-1/6 bg-gray-300 rounded mt-2"></div>
+                <div className="h-6 w-1/6 bg-[color:var(--border)] rounded mt-2"></div>
             </div>
         ))
     );
@@ -86,22 +86,18 @@ const History = () => {
     }, [page, refetch]);
 
     return (
-        <div className="p-6 max-w-4xl mx-auto h-screen mt-4 flex flex-col">
-            <h2 className="text-3xl font-bold mb-6 text-center">Order History</h2>
-            {orders.length === 0 && (
-                <p className="text-center text-gray-500">You have no orders yet.</p>
-            )}
-
+        <div className="p-6 max-w-4xl mx-auto min-h-screen mt-4 flex flex-col">
+            <h2 className="section-title mb-6 text-center">Order History</h2>
             <div className="flex-1 space-y-6 mb-4">
                 {isLoading ? (
                     renderSkeleton()
                 ) : orders.length === 0 ? (
-                    <p className="text-center text-gray-500">You have no orders yet.</p>
+                    <p className="text-center text-[color:var(--muted)]">You have no orders yet.</p>
                 ) : (
                     orders.map((order) => (
                         <div
                             key={order._id}
-                            className="border border-gray-300 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300 bg-white"
+                            className="card p-6 hover:shadow-xl transition-shadow duration-300"
                         >
                             <div className="flex flex-wrap gap-2 mb-4">
                                 <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.status || "pending")}`}>
@@ -113,7 +109,7 @@ const History = () => {
                                 <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getBadgeColor(order.paymentMethod || "cash")}`}>
                                     {(order.paymentMethod || "cash").toUpperCase()}
                                 </span>
-                                <span className="ml-auto text-gray-500 text-sm">
+                                <span className="ml-auto text-[color:var(--muted)] text-sm">
                                     {new Date(order.createdAt).toLocaleString()}
                                 </span>
                             </div>
@@ -121,7 +117,7 @@ const History = () => {
 
                             <div className="mb-3">
                                 <strong>Items:</strong>
-                                <ul className="mt-2 divide-y divide-gray-200">
+                                <ul className="mt-2 divide-y divide-[color:var(--border)]">
                                     {order.items.map(item => (
                                         <li key={item._id} className="py-2 flex justify-between">
                                             <span>{item.menu_id?.menu || "Menu not found"} x {item.quantity}</span>
@@ -131,7 +127,7 @@ const History = () => {
                                 </ul>
                             </div>
 
-                            <div className="flex justify-end pt-3 border-t mt-3 font-bold text-lg">
+                            <div className="flex justify-end pt-3 border-t border-soft mt-3 font-bold text-lg">
                                 Total: {order.items.reduce((acc, item) => acc + item.subtotal, 0)} Ks
                             </div>
                         </div>
@@ -140,11 +136,11 @@ const History = () => {
             </div>
 
 
-            <div className="flex justify-center gap-4 mt-auto ">
+            <div className="flex justify-center gap-4 mt-8 mb-4">
                 <button
                     onClick={handlePrevPage}
                     disabled={page === 1}
-                    className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 disabled:opacity-50"
+                    className="btn-ghost disabled:opacity-50"
                 >
                     Previous
                 </button>
@@ -154,7 +150,7 @@ const History = () => {
                 <button
                     onClick={handleNextPage}
                     disabled={page === totalPages}
-                    className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 disabled:opacity-50"
+                    className="btn-ghost disabled:opacity-50"
                 >
                     Next
                 </button>

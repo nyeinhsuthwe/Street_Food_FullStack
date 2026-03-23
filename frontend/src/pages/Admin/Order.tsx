@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { colors } from "../../constant/color";
 import { useApiQuery } from "../../hook/useQuery";
 import { FaTrash } from "react-icons/fa";
 import { CgMoreO } from "react-icons/cg";
@@ -57,17 +56,17 @@ export function Order() {
         : orders.filter((order: Order) => order.status?.toLowerCase() === selectedOrderStatus.toLowerCase());
 
     return (
-        <div className="p-8 h-full pt-15 w-full overflow-y-auto" style={{ backgroundColor: colors.bg }}>
-            <div className="flex space-x-6 w-5xl mx-auto">
-                <h2 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: colors.text }}>
-                    📦 Order List
+        <div className="p-6 h-full w-full overflow-y-auto">
+            <div className="flex flex-wrap items-center gap-6 w-5xl mx-auto">
+                <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
+                    Order List
                 </h2>
 
                 <div className="">
                     <select
                         value={selectedOrderStatus}
                         onChange={(e) => setSelectedOrderStatus(e.target.value)}
-                        className="border text-[#7f6743] rounded px-3 py-2 text-sm"
+                        className="input text-sm"
                     >
                         <option value="All">All</option>
                         <option value="Pending">Pending</option>
@@ -82,9 +81,9 @@ export function Order() {
                 <OrderSkeleton />
             ) : (
                 <>
-                    <div className="overflow-hidden mt-4 rounded-2xl w-5xl mx-auto" style={{ height: "710px" }}>
+                    <div className="overflow-hidden mt-4 rounded-2xl w-5xl mx-auto card" style={{ height: "710px" }}>
                         <table className="w-full text-xs">
-                            <thead style={{ backgroundColor: colors.accent, color: colors.white }}>
+                            <thead className="bg-accent text-white">
                                 <tr>
                                     <th className="p-4 text-center">Customer Name</th>
                                     <th className="p-4 text-center">Items</th>
@@ -94,33 +93,33 @@ export function Order() {
                                 </tr>
                             </thead>
 
-                            <tbody className="bg-amber-50">
+                            <tbody className="bg-surface">
                                 {filter?.map((order: Order) => (
                                     <tr
                                         key={order._id}
                                         className={`transition-transform duration-200 ease-in-out cursor-pointer ${activeOrderId === order._id ? "transform scale-105 shadow-sm" : "hover:scale-105"
                                             }`}
-                                        style={{ borderBottom: `2px solid ${colors.bg}` }}
+                                        style={{ borderBottom: "1px solid var(--border)" }}
                                     >
-                                        <td className="text-center font-medium p-4" style={{ color: colors.text }}>
+                                        <td className="text-center font-medium p-4">
                                             {order.user_id?.name ?? "Deleted User"}
                                         </td>
 
-                                        <td className="text-center font-medium" style={{ color: colors.text }}>
+                                        <td className="text-center font-medium">
                                             {order.items.length} item(s)
                                         </td>
 
-                                        <td className="text-center font-medium" style={{ color: colors.text }}>
+                                        <td className="text-center font-medium">
                                             {order.items.reduce((sum, item) => sum + item.subtotal, 0)}
                                         </td>
 
                                         <td className={`text-center font-medium ${order.status?.toLowerCase() === "pending"
-                                            ? "text-yellow-500"
+                                            ? "text-accent-3"
                                             : order.status?.toLowerCase() === "delivered"
-                                                ? "text-gray-500"
+                                                ? "text-accent-2"
                                                 : order.status?.toLowerCase() === "canceled"
-                                                    ? "text-red-500"
-                                                    : "text-green-500"
+                                                    ? "text-accent"
+                                                    : "text-accent-2"
                                             }`} >
                                             {order.status.toUpperCase()}
                                         </td>
@@ -128,14 +127,14 @@ export function Order() {
                                         <td className="text-center ">
                                             <button
                                                 type="button"
-                                                className="text-lg mr-2 text-green-600"
+                                                className="text-lg mr-2 text-accent-2"
                                                 onClick={() => handleOrderDetail(order)}
                                             >
                                                <CgMoreO/>
                                             </button>
                                                <button
                                                 type="button"
-                                                className="text-lg mr-2 text-red-600"
+                                                className="text-lg mr-2 text-accent"
                                                 onClick={() => handleDelete(order._id!)}
                                             >
                                                 <FaTrash />
@@ -146,15 +145,15 @@ export function Order() {
                             </tbody>
                         </table>
 
-                        <div className="flex  mr-1 justify-end items-center gap-4 mt-4 ">
-                            <span className="font-medium text-gray-700">
+                        <div className="flex mr-1 justify-end items-center px-4 gap-4 mt-8 mb-4">
+                            <span className="font-medium text-[color:var(--muted)]">
                                 Page {currentPage} of {totalPages}
                             </span>
 
                             <button
                                 onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                                 disabled={currentPage === 1}
-                                className="px-4 py-2 bg-green-400 rounded hover:bg-green-500 disabled:opacity-50"
+                                className="btn-secondary disabled:opacity-50"
                             >
                                 Previous
                             </button>
@@ -162,7 +161,7 @@ export function Order() {
                             <button
                                 onClick={() => setPage((prev) => (prev < totalPages ? prev + 1 : prev))}
                                 disabled={currentPage === totalPages}
-                                className="px-4 py-2 bg-green-400 rounded hover:bg-green-500 disabled:opacity-50"
+                                className="btn-secondary disabled:opacity-50"
                             >
                                 Next
                             </button>

@@ -59,6 +59,10 @@ const OrderSchema = new schema({
     type: String,
     required: true,
   },
+  paymentBill: {
+    type: String,
+    default: null,
+  },
 },
   { timestamps: true }
 )

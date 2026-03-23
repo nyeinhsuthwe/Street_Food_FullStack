@@ -11,8 +11,6 @@ export const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) 
   const token = Cookies.get("newToken")
   const role = localStorage.getItem("userRole");
 
-  console.log(token)
-
   if (!token) {
     return <Navigate to="/login" replace />;
   }

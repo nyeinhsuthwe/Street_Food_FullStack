@@ -3,7 +3,7 @@ import axios from "../helpers/axios";
 
 interface QueryPayload {
   endpoint: string;
-  method?: "GET" | "POST"; // <-- Added
+  method?: "GET" | "POST"; 
   queryKey?: unknown[];
   params?: Record<string, any>;
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { colors } from "../../constant/color";
 import { FaRegEdit } from "react-icons/fa";
 import { useApiQuery } from "../../hook/useQuery";
 import { useApiMutation } from "../../hook/useMutation";
@@ -65,7 +64,7 @@ const AdminMenu: React.FC = () => {
 
   if (isError)
     return (
-      <p className="text-center mt-10 text-red-600">
+      <p className="text-center mt-10 text-accent">
         Error: {(error as Error).message}
       </p>
     );
@@ -77,20 +76,16 @@ const AdminMenu: React.FC = () => {
 
   return (
     <div
-      className="p-8 h-full pt-15 w-full overflow-y-auto"
-      style={{ backgroundColor: colors.bg }}
+      className="p-6 h-full w-full overflow-y-auto"
     >
-      <div className="overflow-hidden mt-4 rounded-2xl max-w-5xl mx-auto flex space-x-6">
-        <h2
-          className="text-xl font-bold mb-3 flex items-center gap-2"
-          style={{ color: colors.text }}
-        >
-          🍔 Menu List
+      <div className="overflow-hidden mt-4 rounded-2xl max-w-5xl mx-auto flex flex-wrap items-center gap-4">
+        <h2 className="text-xl font-bold flex items-center gap-2">
+          Menu List
         </h2>
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border text-sm rounded-lg px-4 text-[#7f6743]"
+          className="input text-sm"
         >
           <option value="All">All Categories</option>
           {categories?.map((cat: Categories) => (
@@ -106,13 +101,11 @@ const AdminMenu: React.FC = () => {
       ) : (
         <>
           <div
-            className="overflow-hidden mt-4 rounded-2xl max-w-5xl mx-auto"
+            className="overflow-hidden mt-4 rounded-2xl max-w-5xl mx-auto card"
             style={{ height: "670px" }}
           >
             <table className="w-full">
-              <thead
-                style={{ backgroundColor: colors.accent, color: colors.white }}
-              >
+              <thead className="bg-accent text-white">
                 <tr className="text-xs">
                   <th className="p-4 text-center">Photo</th>
                   <th className="p-4 text-center">Name</th>
@@ -122,7 +115,7 @@ const AdminMenu: React.FC = () => {
                 </tr>
               </thead>
 
-              <tbody className="bg-amber-50">
+              <tbody className="bg-surface">
                 {filterMenu?.map((menu: Inputs) => (
                   <tr
                     key={menu._id}
@@ -130,9 +123,7 @@ const AdminMenu: React.FC = () => {
                         ? "transform scale-105 shadow-sm"
                         : "hover:scale-105"
                       }`}
-                    style={{
-                      borderBottom: `2px solid ${colors.bg}`,
-                    }}
+                    style={{ borderBottom: "1px solid var(--border)" }}
                   >
                     <td className="text-center py-2">
                       <img
@@ -148,19 +139,16 @@ const AdminMenu: React.FC = () => {
                     </td>
                     <td
                       className="text-center text-xs font-medium"
-                      style={{ color: colors.text }}
                     >
                       {menu.menu}
                     </td>
                     <td
                       className="text-center text-xs"
-                      style={{ color: colors.text }}
                     >
                       ${menu.price}
                     </td>
                     <td
                       className="text-center text-xs"
-                      style={{ color: colors.text }}
                     >
                       {menu.description || "-"}
                     </td>
@@ -168,14 +156,14 @@ const AdminMenu: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleEdit(menu)}
-                        className="text-xl mr-2 text-green-600"
+                        className="text-xl mr-2 text-accent-2"
                       >
                         <FaRegEdit />
                       </button>
                       <button
                         onClick={() => handleDelete(menu._id!)}
                         type="button"
-                        className="text-xl text-red-600"
+                        className="text-xl text-accent"
                       >
                         <MdDelete />
                       </button>
@@ -184,15 +172,15 @@ const AdminMenu: React.FC = () => {
                 ))}
               </tbody>
             </table>
-            <div className="flex justify-end gap-4 mt-4">
-              <span className="font-medium text-gray-700">
+            <div className="flex justify-end items-center px-4 gap-4 mt-8 mb-4">
+              <span className="font-medium text-[color:var(--muted)]">
                 Page {currentPage} of {totalPages}
               </span>
 
               <button
                 onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 bg-green-400 rounded hover:bg-green-500 disabled:opacity-50"
+                className="btn-secondary disabled:opacity-50"
               >
                 Previous
               </button>
@@ -202,7 +190,7 @@ const AdminMenu: React.FC = () => {
                   setPage((prev) => (prev < totalPages ? prev + 1 : prev))
                 }
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-green-400 rounded hover:bg-green-500 disabled:opacity-50"
+                className="btn-secondary disabled:opacity-50"
               >
                 Next
               </button>

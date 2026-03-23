@@ -16,6 +16,7 @@ interface CheckoutFormData {
     paymentMethod: "cash" | "wavepay" | "kbzpay" | "card";
     phone: string;
     address?: string;
+    billPhoto?: FileList;
 }
 
 const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
@@ -25,6 +26,8 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
     const [cachedData, setCachedData] = useState<CheckoutFormData | null>(null);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutFormData>();
+    const paymentMethod = watch("paymentMethod");
+    const requiresBill = paymentMethod === "wavepay" || paymentMethod === "kbzpay";
 
     const checkoutMutation = useApiMutation({
         onSuccess: () => {
@@ -43,11 +46,34 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
         }));
 
         const body = {
-            ...data,
+            deliveryType: data.deliveryType,
+            paymentMethod: data.paymentMethod,
+            phone: data.phone,
+            address: data.address,
             user_id: userId,
             items: orderItems,
             subtotal,
         };
+
+        const billFile = data.billPhoto?.[0];
+        if (billFile) {
+            const formData = new FormData();
+            formData.append("payment_bill", billFile);
+            formData.append("deliveryType", body.deliveryType);
+            formData.append("paymentMethod", body.paymentMethod);
+            formData.append("phone", body.phone);
+            if (body.address) formData.append("address", body.address);
+            formData.append("user_id", body.user_id ?? "");
+            formData.append("subtotal", String(body.subtotal));
+            formData.append("items", JSON.stringify(body.items));
+
+            checkoutMutation.mutate({
+                endpoint: `${import.meta.env.VITE_API_URL}/create-order`,
+                method: "POST",
+                body: formData
+            });
+            return;
+        }
 
         checkoutMutation.mutate({
             endpoint: `${import.meta.env.VITE_API_URL}/create-order`,
@@ -68,11 +94,11 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-            <div className="bg-white w-full max-w-lg rounded-xl shadow-lg p-6">
+            <div className="card w-full max-w-lg p-6">
 
                 <div className="flex items-center justify-between mb-5">
-                    <h2 className="text-xl font-bold text-gray-800">Checkout</h2>
-                    <button className="text-gray-500" onClick={onClose}>✕</button>
+                    <h2 className="text-xl font-bold">Checkout</h2>
+                    <button className="text-[color:var(--muted)]" onClick={onClose}>✕</button>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +109,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                             {["takeaway", "dinein", "delivery"].map(type => (
                                 <label
                                     key={type}
-                                    className={`border rounded-lg p-3 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${deliveryType === type ? "bg-red-100 border-red-500" : ""
+                                    className={`border rounded-lg p-3 flex items-center justify-center cursor-pointer hover:bg-surface-2 ${deliveryType === type ? "bg-accent-3 border-accent-3 text-[color:var(--text)]" : "bg-surface border-soft"
                                         }`}
                                 >
                                     <input
@@ -104,7 +130,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
 
                         <div className="relative">
                             <AiOutlinePhone
-                                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[color:var(--muted)]"
                                 size={20}
                             />
                             <input
@@ -117,12 +143,12 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                                         message: "Invalid Myanmar phone number",
                                     },
                                 })}
-                                className="w-full pl-10 border px-3 py-2 rounded-lg"
+                                className="w-full pl-10 input"
                             />
                         </div>
 
                         {errors.phone && (
-                            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                            <p className="text-accent text-sm mt-1">{errors.phone.message}</p>
                         )}
                     </div>
 
@@ -133,7 +159,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                             <textarea
                                 {...register("address")}
                                 placeholder="Enter address"
-                                className="w-full border px-3 py-2 rounded-lg"
+                                className="w-full input"
                                 rows={3}
                             />
                         </div>
@@ -145,7 +171,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                             {["cash", "wavepay", "kbzpay", "card"].map(pm => (
                                 <label
                                     key={pm}
-                                    className="border rounded-lg p-3 flex items-center cursor-pointer hover:bg-gray-100"
+                                    className="border rounded-lg p-3 flex items-center cursor-pointer hover:bg-surface-2 bg-surface border-soft"
                                 >
                                     <input
                                         type="radio"
@@ -159,9 +185,29 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                         </div>
                     </div>
 
-                    <div className="bg-gray-100 p-4 rounded-lg mb-6">
+                    {requiresBill && (
+                        <div className="mb-5">
+                            <h3 className="text-sm font-semibold mb-2">Payment Bill</h3>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                {...register("billPhoto", {
+                                    validate: (files) => {
+                                        if (!requiresBill) return true;
+                                        return files && files.length > 0 ? true : "Payment bill is required";
+                                    },
+                                })}
+                                className="w-full input"
+                            />
+                            {errors.billPhoto && (
+                                <p className="text-accent text-sm mt-1">{errors.billPhoto.message}</p>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="bg-surface-2 p-4 rounded-lg mb-6">
                         <h3 className="text-sm font-semibold mb-2">Order Summary</h3>
-                        <div className="flex justify-between font-bold border-t pt-2">
+                        <div className="flex justify-between font-bold border-t border-soft pt-2">
                             <span>Total</span>
                             <span>{subtotal} Ks</span>
                         </div>
@@ -170,7 +216,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                     <div className="flex gap-3">
                         <button
                             type="button"
-                            className="w-1/2 py-2 rounded-lg border border-gray-400 text-gray-600"
+                            className="w-1/2 btn-ghost"
                             onClick={onClose}
                         >
                             Cancel
@@ -178,7 +224,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
 
                         <button
                             type="submit"
-                            className="w-1/2 py-2 rounded-lg bg-red-600 text-white font-semibold"
+                            className="w-1/2 btn-primary"
                         >
                             Confirm Order
                         </button>

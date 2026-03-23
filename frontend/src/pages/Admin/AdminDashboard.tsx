@@ -3,7 +3,6 @@ import { useApiMutation } from "../../hook/useMutation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
-import { colors } from "../../constant/color";
 import toast from "react-hot-toast";
 import { DashboardSkeleton } from "../../constant/skeleton";
 
@@ -57,24 +56,19 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <main
-      className="min-h-screen w-full mx-auto flex flex-col items-center px-6 py-17"
-      style={{ backgroundColor: colors.bg }}
+      className="min-h-screen w-full mx-auto flex flex-col items-center px-6 py-10"
     >
       <div className="mb-10 text-center">
-        <h1
-          className="text-2xl font-extrabold"
-          style={{ color: colors.accent }}
-        >
-          🍔 Menu Management
+        <h1 className="text-2xl font-extrabold text-accent">
+          Menu Management
         </h1>
-        <p className="mt-2 text-sm text-[#7F6744]">
-          Manage your street food menu with a warm vintage vibe
+        <p className="mt-2 text-sm text-[color:var(--muted)]">
+          Manage your menu items, pricing, and descriptions
         </p>
       </div>
 
       <section
-        className="max-w-3xl mx-auto max-h-85 shadow-lg rounded-2xl p-8 mb-12 border"
-        style={{ backgroundColor: colors.card, borderColor: colors.bg }}
+        className="max-w-3xl w-full mx-auto shadow-lg rounded-2xl p-8 mb-12 border border-soft bg-surface"
       >
         {isLoading ? (
          
@@ -86,20 +80,16 @@ const AdminDashboard: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <div className="flex flex-col  md:flex-row justify-between items-start md:items-center mb-6">
               <div>
-                <h2
-                  className="text-lg font-semibold text-[#7F6744]"
-
-                >
+                <h2 className="text-lg font-semibold">
                   Create Menu Item
                 </h2>
-                <p className="text-xs mt-1" style={{ color: colors.accent }}>
+                <p className="text-xs mt-1 text-accent">
                   Fill out the details to add a new menu item
                 </p>
               </div>
               <button
                 type="submit"
-                className="flex items-center text-xs gap-2 mt-4 md:mt-0 font-semibold px-4 py-2.5 rounded-lg shadow-md transition-all duration-200 
-               text-white hover:bg-amber-600 bg-amber-500"
+                className="flex items-center text-xs gap-2 mt-4 md:mt-0 btn-primary"
               >
                 <FaPlus className="text-xs" /> Add Item
               </button>
@@ -109,7 +99,7 @@ const AdminDashboard: React.FC = () => {
               {/* Menu */}
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
 
                 >
                   Menu
@@ -117,8 +107,7 @@ const AdminDashboard: React.FC = () => {
                 <input
                   type="text"
                   {...register("menu", { required: true })}
-                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
-                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  className="w-full input placeholder:text-xs"
                   placeholder="Enter Menu"
                 />
               </div>
@@ -126,15 +115,14 @@ const AdminDashboard: React.FC = () => {
               {/* Category Dropdown */}
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1 "
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1 "
 
                 >
                   Category
                 </label>
                 <select
                   {...register("category_id", { required: true })}
-                  className="w-full p-3 border rounded-lg outline-none transition text-sm "
-                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  className="w-full input text-sm"
                 >
                   <option value="">Select Category</option>
                   {categories?.map((cat) => (
@@ -148,7 +136,7 @@ const AdminDashboard: React.FC = () => {
               {/* Price */}
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
 
                 >
                   Price ($)
@@ -156,8 +144,7 @@ const AdminDashboard: React.FC = () => {
                 <input
                   type="number"
                   {...register("price", { required: true })}
-                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
-                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  className="w-full input placeholder:text-xs"
                   placeholder="Enter Price"
                 />
               </div>
@@ -165,14 +152,13 @@ const AdminDashboard: React.FC = () => {
               {/* Description */}
               <div className="lg:col-span-2">
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
                 >
                   Description
                 </label>
                 <textarea
                   {...register("description")}
-                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
-                  style={{ backgroundColor: colors.bg, borderColor: colors.bg }}
+                  className="w-full input placeholder:text-xs"
                   rows={3}
                   placeholder="Describe the dish..."
                 />
@@ -181,7 +167,7 @@ const AdminDashboard: React.FC = () => {
               {/* Upload Photo */}
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
 
                 >
                   Upload Photo
@@ -190,9 +176,9 @@ const AdminDashboard: React.FC = () => {
                   {...register("photo")}
                   type="file"
                   accept="image/*"
-                  className="block bg-[#F2EAD3] w-full text-xs text-[#344F1F] file:mr-4 file:py-2 file:px-4 
+                  className="block w-full text-xs text-[color:var(--text)] file:mr-4 file:py-2 file:px-4 
                   file:border-0 file:font-semibold 
-                  file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
+                  file:bg-[color:var(--accent-2)] file:text-white hover:file:opacity-80 transition"
                 />
               </div>
             </div>

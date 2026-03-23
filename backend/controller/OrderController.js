@@ -6,11 +6,24 @@ const OrderController = {
 
     createOrder: async (req, res) => {
         try {
-            const { user_id, items, paymentMethod, deliveryType, address, fullname, phone } = req.body;
+            const { user_id, paymentMethod, deliveryType, address, fullname, phone } = req.body;
+            let { items } = req.body;
             const orderItems = []
             const user = await User.findById(user_id)
             if (!user) {
                 return res.json({ msg: "use not found" })
+            }
+
+            if (typeof items === "string") {
+                try {
+                    items = JSON.parse(items);
+                } catch (parseError) {
+                    return res.status(400).json({ message: "Invalid items format" });
+                }
+            }
+
+            if (!Array.isArray(items) || items.length === 0) {
+                return res.status(400).json({ message: "Items are required" });
             }
 
             for (const item of items) {
@@ -37,7 +50,8 @@ const OrderController = {
                 paymentMethod,
                 deliveryType,
                 address,
-                phone
+                phone,
+                paymentBill: req.file ? req.file.filename : undefined
             });
             return res.json({
                 message: "Your order is successed!",

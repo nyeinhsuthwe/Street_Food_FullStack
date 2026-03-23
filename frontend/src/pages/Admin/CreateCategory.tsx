@@ -1,6 +1,5 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { colors } from "../../constant/color";
 import Category from "../../components/Category";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -46,27 +45,20 @@ const CreateCategory: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full " style={{ backgroundColor: colors.bg }}>
-      <main
-        className=" flex flex-col items-center px-6 py-10"
-
-      >
-        <h1
-          className="text-xl font-extrabold mb-6 text-center"
-          style={{ color: colors.accent }}
-        >
-          🍕 Category Management
+    <div className="flex flex-col items-center w-full">
+      <main className="flex flex-col items-center px-6 py-10">
+        <h1 className="text-xl font-extrabold mb-6 text-center text-accent">
+          Category Management
         </h1>
 
         <section
-          className="w-full h-full max-h-49 max-w-xl shadow-lg rounded-2xl p-8 border mb-12"
-          style={{ backgroundColor: colors.card, borderColor: colors.bg }}
+          className="w-full h-full max-h-49 max-w-xl shadow-lg rounded-2xl p-8 border border-soft mb-12 bg-surface"
         >
           <form className="grid gap-6 max-w-xl" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
                  
                 >
                   Category Name
@@ -75,18 +67,13 @@ const CreateCategory: React.FC = () => {
                   {...register("name")}
                   type="text"
                   placeholder="Enter category name"
-                  className="w-full p-2 border rounded-lg outline-none transition placeholder:text-xs"
-                  style={{
-                    backgroundColor: colors.bg,
-                    borderColor: colors.bg,
-                    color: colors.text,
-                  }}
+                  className="w-full input placeholder:text-xs"
                 />
               </div>
 
               <div>
                 <label
-                  className="block text-[#7F6744] text-sm font-medium mb-1"
+                  className="block text-[color:var(--muted)] text-sm font-medium mb-1"
                  
                 >
                   Upload Photo
@@ -95,17 +82,17 @@ const CreateCategory: React.FC = () => {
                   {...register("photo")}
                   type="file"
                   accept="image/*"
-                  className="block  rounded bg-[#F2EAD3] w-full text-xs text-[#344F1F] file:mr-4 file:py-3 file:px-4 
+                  className="block rounded w-full text-xs text-[color:var(--text)] file:mr-4 file:py-3 file:px-4 
                                 file:border-0 file:font-semibold 
-                                file:bg-amber-500 file:text-white hover:file:bg-amber-600 transition"
+                                file:bg-[color:var(--accent-2)] file:text-white hover:file:opacity-80 transition"
                 />
               </div>
             </div>
 
           
-              <button
+            <button
               type="submit"
-              className="flex justify-center  text-sm text-center gap-1 mt-2   py-3 rounded-lg shadow-md font-semibold transition bg-green-600 hover:bg-green-700 text-white"
+              className="flex justify-center text-sm text-center gap-1 mt-2 py-3 rounded-lg shadow-md font-semibold transition btn-primary"
             >
               <FaPlus /> Add Category
             </button>

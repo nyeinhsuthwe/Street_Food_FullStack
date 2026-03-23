@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaSave, FaTimes } from "react-icons/fa";
-import { colors } from "../../constant/color";
 import { useApiMutation } from "../../hook/useMutation";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -55,25 +54,22 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50 backdrop-blur-sm">
-      <div
-        className="rounded-xl shadow-lg p-6 w-full max-w-md relative border-2 border-green-200"
-        style={{ backgroundColor: colors.card }}
-      >
+      <div className="card p-6 w-full max-w-md relative">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+          className="absolute top-3 right-3 text-accent hover:opacity-80"
         >
           <FaTimes size={20} />
         </button>
 
-        <h2 className="text-xl text-[#7F6744] font-bold mb-4 ">
+        <h2 className="text-xl font-bold mb-4 ">
           Update Category
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div>
             <label
-              className="block text-sm font-medium mb-1 text-[#7F6744]"
+              className="block text-sm font-medium mb-1 text-[color:var(--muted)]"
               
             >
               Category Name
@@ -82,17 +78,13 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
               {...register("name")}
               type="text"
               placeholder="Enter category name"
-              className="w-full p-3 text-sm rounded border outline-none text-[#7F6744]"
-              style={{
-                borderColor: colors.bg,
-                backgroundColor: colors.bg,
-              }}
+              className="w-full input text-sm"
             />
           </div>
 
           <div>
             <label
-              className="block text-sm font-medium mb-1 text-[#7F6744]"
+              className="block text-sm font-medium mb-1 text-[color:var(--muted)]"
               
             >
               Upload Photo
@@ -106,7 +98,7 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
                   setPreview(URL.createObjectURL(e.target.files[0]));
                 }
               }}
-              className="block w-full text-sm p-3 rounded bg-amber-500 hover:bg-amber-600"
+              className="block w-full text-sm p-3 rounded bg-accent-2 text-white hover:opacity-80"
              
             />
             {preview && (
@@ -120,7 +112,7 @@ const UpdateCategoryForm: React.FC<UpdateCategoryProps> = ({
 
           <button
             type="submit"
-            className=" flex items-center text-sm justify-center gap-2 px-4 py-3 rounded shadow-md font-semibold  bg-green-600 hover:bg-green-700 text-white"
+            className="flex items-center text-sm justify-center gap-2 px-4 py-3 rounded shadow-md font-semibold btn-primary"
           >
             <FaSave /> Save Changes
           </button>

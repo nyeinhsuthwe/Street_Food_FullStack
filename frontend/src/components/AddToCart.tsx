@@ -33,10 +33,10 @@ const AddToCart: React.FC<AddToCartProps> = ({ menu, onClose }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-            <div className="relative bg-white rounded-lg shadow-lg p-6 w-96">
+            <div className="relative card p-6 w-96">
                 <button
                     onClick={onClose}
-                    className="top-1 right-1 absolute text-red-500 hover:text-red-300"
+                    className="top-1 right-1 absolute text-accent hover:opacity-70"
                 >
                     <FaTimes size={25} />
                 </button>
@@ -52,39 +52,39 @@ const AddToCart: React.FC<AddToCartProps> = ({ menu, onClose }) => {
                 />
 
                 <div className="flex gap-3 justify-between">
-                    <h2 className="text-md w-[130px] mb-4 border-b-2 border-red-500 py-2 font-semibold text-gray-800 text-center">
+                    <h2 className="text-md w-[130px] mb-4 border-b-2 border-accent py-2 font-semibold text-center">
                         {menu.menu}
                     </h2>
 
-                    <p className="text-sm w-[130px] mb-4 rounded-2xl bg-red-500 py-2 font-semibold text-white text-center">
+                    <p className="text-sm w-[130px] mb-4 rounded-2xl bg-accent py-2 font-semibold text-white text-center">
                         Price: ${menu.price.toFixed(2)}
                     </p>
                 </div>
 
                 <div className="flex items-center gap-3 mb-4 mt-8">
-                    <p className="text-gray-600">Choose Qty:</p>
+                    <p className="text-[color:var(--muted)]">Choose Qty:</p>
                     <button
                         onClick={handleDecrease}
-                        className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+                        className="bg-surface-2 px-3 py-1 rounded hover:shadow-sm"
                     >
                         -
                     </button>
                     <span className="text-lg font-medium">{quantity}</span>
                     <button
                         onClick={handleIncrease}
-                        className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+                        className="bg-surface-2 px-3 py-1 rounded hover:shadow-sm"
                     >
                         +
                     </button>
                 </div>
 
-                <p className="text-gray-700 font-semibold mb-4">
-                    Total: <span className="text-red-500">${totalPrice}</span>
+                <p className="font-semibold mb-4">
+                    Total: <span className="text-accent">${totalPrice}</span>
                 </p>
 
                 <button
                     onClick={handleConfirm}
-                    className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition font-medium"
+                    className="w-full btn-primary"
                 >
                     Confirm Add to Cart
                 </button>

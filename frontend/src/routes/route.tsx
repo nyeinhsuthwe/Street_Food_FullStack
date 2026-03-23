@@ -14,6 +14,7 @@ import CartPage from "../pages/User/Cart";
 import { PublicRoute } from "./PublicRoute";
 import History from "../pages/User/History";
 import CustomerList from "../pages/Admin/CustomerList";
+import AdminSettings from "../pages/Admin/Settings";
 
 const route = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const route = createBrowserRouter([
       {
         path: "customer",
         element : <CustomerList/>
+      },
+      {
+        path: "setting",
+        element: <AdminSettings />
       }
     ],
   },
